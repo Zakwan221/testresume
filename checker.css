@@ -1,0 +1,110 @@
+
+/* White clean style */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f8f9fb;
+  color: #333;
+}
+
+.header {
+  text-align: center;
+  padding: 30px 15px 10px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+.subtitle {
+  margin: 5px 0 0;
+  font-size: 15px;
+  color: #555;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover { opacity: 0.9; }
+button:active { transform: scale(0.97); }
+
+button.secondary {
+  background: #6c63ff;
+  color: white;
+}
+button.ghost {
+  background: #eee;
+  color: #333;
+}
+button:not(.secondary):not(.ghost) {
+  background: #007bff;
+  color: white;
+}
+
+.stats {
+  font-size: 14px;
+  color: #555;
+}
+
+.issue {
+  border-left: 4px solid #ff6b6b;
+  background: #fff7f7;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+.issue strong { color: #d32f2f; }
+.issue .actions { margin-top: 6px; }
+.issue button {
+  padding: 4px 8px;
+  font-size: 13px;
+  margin-right: 5px;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 14px;
+}
+.note {
+  font-size: 13px;
+  color: #777;
+}

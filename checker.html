@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Checker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>AI Resume Checker</h1>
+    <p class="subtitle">Upload or paste your resume to check spelling, grammar, and wording</p>
+  </header>
+
+  <main class="container">
+    <!-- Upload + Paste Section -->
+    <section class="card">
+      <h2>Upload Resume</h2>
+      <input type="file" id="fileInput" accept=".txt,.pdf,.docx" />
+      <p class="note">Supported: TXT, DOCX, PDF</p>
+
+      <h2>Or Paste Text</h2>
+      <textarea id="resumeInput" placeholder="Paste your resume text here..."></textarea>
+    </section>
+
+    <!-- Tools -->
+    <section class="card">
+      <div class="toolbar">
+        <button id="checkBtn">Check</button>
+        <button id="applyAllBtn" class="secondary">Apply all fixes</button>
+        <button id="clearBtn" class="ghost">Clear</button>
+      </div>
+
+      <div class="stats">
+        <span id="wordCount">0 words</span> | 
+        <span id="readability">Readability: –</span>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card">
+      <h2>Suggestions</h2>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Powered by LanguageTool (when online) + built-in offline checks</small>
+  </footer>
+
+  <!-- Libraries for extracting text -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

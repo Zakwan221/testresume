@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerConnect - Find Your Dream Job</title>
+    <link rel="stylesheet" href="worker.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <span>CareerConnect</span>
+            </div>
+            
+            <!-- Clean Navigation -->
+            <nav class="nav">
+                <a href="#jobs" class="nav-link active" data-section="jobs">
+                    <i class="fas fa-search"></i>
+                    <span>Browse Jobs</span>
+                </a>
+                <a href="#saved" class="nav-link" data-section="saved">
+                    <i class="fas fa-heart"></i>
+                    <span>Saved</span>
+                    <span class="nav-count" id="saved-count">0</span>
+                </a>
+                <a href="#applied" class="nav-link" data-section="applied">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Applied</span>
+                    <span class="nav-count" id="applied-count">0</span>
+                </a>
+                <a href="#chat-requests" class="nav-link" data-section="chat-requests">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Chat Requests</span>
+                    <span class="notification-badge" id="chat-requests-badge" style="display: none;">0</span>
+                </a>
+                <a href="#interviews" class="nav-link" data-section="interviews">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Interviews</span>
+                    <span class="nav-count" id="interviews-count">0</span>
+                </a>
+                <a href="#messages" class="nav-link" data-section="messages">
+                    <i class="fas fa-messages"></i>
+                    <span>Messages</span>
+                    <span class="notification-badge" id="messages-badge" style="display: none;">0</span>
+                </a>
+            </nav>
+
+            <!-- Clean User Menu -->
+            <div class="user-section">
+                <!-- Notifications -->
+                <div class="notifications" id="notifications-dropdown">
+                    <button class="notification-btn" id="notification-btn" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count" id="notification-count" style="display: none;">0</span>
+                    </button>
+                    <div class="notification-panel" id="notification-panel">
+                        <div class="notification-header">
+                            <h3>Notifications</h3>
+                            <button class="clear-all-btn" id="clear-notifications">Clear All</button>
+                        </div>
+                        <div class="notification-list" id="notification-list">
+                            <div class="no-notifications">
+                                <i class="fas fa-bell-slash"></i>
+                                <p>No notifications</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Profile -->
+                <div class="user-profile" id="user-profile">
+                    <div class="user-avatar" id="user-avatar">
+                        <span id="user-initials">U</span>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="user-name">User Name</span>
+                        <span class="user-role">Job Seeker</span>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="user-menu-dropdown" id="user-menu-dropdown">
+                        <a href="profile.html" class="menu-item">
+                            <i class="fas fa-user"></i> My Profile
+                        </a>
+                        <a href="employer.html" class="menu-item">
+                            <i class="fas fa-building"></i> Employer View
+                        </a>
+                        <div class="menu-divider"></div>
+                        <a href="#" class="menu-item logout-btn" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Find Your Dream Job</h1>
+                    <p>Discover amazing career opportunities from top companies</p>
+                    <div class="search-bar">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="job-search" placeholder="Search jobs, companies, keywords...">
+                        </div>
+                        <div class="location-input-group">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="location-search" placeholder="Location or Remote">
+                        </div>
+                        <button class="search-btn" id="search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Browse Jobs Section -->
+            <section id="jobs" class="section active">
+                <div class="section-header">
+                    <h2>Available Positions</h2>
+                    <div class="job-count">
+                        <span id="job-count">0</span> jobs found
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="job-type-filter">Job Type:</label>
+                        <select id="job-type-filter">
+                            <option value="">All Types</option>
+                            <option value="full-time">Full Time</option>
+                            <option value="part-time">Part Time</option>
+                            <option value="contract">Contract</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="experience-filter">Experience:</label>
+                        <select id="experience-filter">
+                            <option value="">All Levels</option>
+                            <option value="entry">Entry Level</option>
+                            <option value="mid">Mid Level</option>
+                            <option value="senior">Senior Level</option>
+                            <option value="lead">Lead/Manager</option>
+                            <option value="executive">Executive</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort-filter">Sort by:</label>
+                        <select id="sort-filter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="company">Company A-Z</option>
+                            <option value="title">Job Title A-Z</option>
+                        </select>
+                    </div>
+
+                    <button class="clear-filters-btn" id="clear-filters">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </div>
+
+                <!-- Job Listings -->
+                <div class="jobs-container" id="jobs-container">
+                    <div class="no-jobs" id="no-jobs-message">
+                        <i class="fas fa-search"></i>
+                        <h3>No jobs available</h3>
+                        <p>Check back later for new opportunities or adjust your search criteria</p>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button class="btn btn-secondary" id="load-more-btn">
+                        <i class="fas fa-plus"></i> Load More Jobs
+                    </button>
+                </div>
+            </section>
+
+            <!-- Saved Jobs Section -->
+            <section id="saved" class="section">
+                <div class="section-header">
+                    <h2>Saved Jobs</h2>
+                    <p>Jobs you've bookmarked for later</p>
+                </div>
+
+                <div class="jobs-container" id="saved-jobs-container">
+                    <div class="no-jobs">
+                        <i class="fas fa-heart"></i>
+                        <h3>No saved jobs yet</h3>
+                        <p>Start browsing jobs and save the ones you're interested in</p>
+                        <button class="btn btn-primary" data-section="jobs">
+                            <i class="fas fa-search"></i> Browse Jobs
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applied Jobs Section -->
+            <section id="applied" class="section">
+                <div class="section-header">
+                    <h2>Applied Jobs</h2>
+                    <p>Track your job applications</p>
+                </div>
+
+                <div class="jobs-container" id="applied-jobs-container">
+                    <div class="no-jobs">
+                        <i class="fas fa-paper-plane"></i>
+                        <h3>No applications yet</h3>
+                        <p>Start applying to jobs and track your progress here</p>
+                        <button class="btn btn-primary" data-section="jobs">
+                            <i class="fas fa-search"></i> Browse Jobs
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Requests Section -->
+            <section id="chat-requests" class="section">
+                <div class="section-header">
+                    <h1>Chat Requests</h1>
+                    <p>Manage your chat requests with employers</p>
+                </div>
+
+                <div class="chat-requests-tabs">
+                    <button class="tab-btn active" data-tab="sent">
+                        <i class="fas fa-paper-plane"></i> Sent Requests
+                        <span class="tab-count" id="sent-count">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="received">
+                        <i class="fas fa-inbox"></i> Received
+                        <span class="tab-count" id="received-count">0</span>
+                    </button>
+                </div>
+
+                <div class="chat-requests-container">
+                    <div id="sent-requests" class="requests-tab active">
+                        <div class="requests-list" id="sent-requests-list">
+                            <div class="no-requests">
+                                <i class="fas fa-paper-plane"></i>
+                                <h3>No sent chat requests</h3>
+                                <p>Start browsing jobs and request to chat with employers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="received-requests" class="requests-tab">
+                        <div class="requests-list" id="received-requests-list">
+                            <div class="no-requests">
+                                <i class="fas fa-inbox"></i>
+                                <h3>No incoming chat requests</h3>
+                                <p>Employers interested in your profile will send chat requests here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interviews Section -->
+            <section id="interviews" class="section">
+                <div class="section-header">
+                    <h2>My Interviews</h2>
+                    <p>View and manage your scheduled interviews</p>
+                </div>
+
+                <div class="interviews-filters">
+                    <div class="filter-group">
+                        <label for="interview-status-filter">Status:</label>
+                        <select id="interview-status-filter">
+                            <option value="">All Interviews</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="interview-date-filter">Date:</label>
+                        <select id="interview-date-filter">
+                            <option value="">All Dates</option>
+                            <option value="today">Today</option>
+                            <option value="tomorrow">Tomorrow</option>
+                            <option value="this-week">This Week</option>
+                            <option value="next-week">Next Week</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="interviews-container" id="interviews-container">
+                    <div class="no-interviews">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>No interviews scheduled</h3>
+                        <p>Interviews scheduled by employers will appear here</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messages" class="section">
+                <div class="section-header">
+                    <h2>Messages</h2>
+                    <p>Chat with employers and recruiters</p>
+                </div>
+
+                <div class="messages-container">
+                    <div class="chat-sidebar">
+                        <div class="chat-search">
+                            <div class="search-input-group">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="chat-search" placeholder="Search conversations...">
+                            </div>
+                        </div>
+                        <div class="chat-list" id="chat-list">
+                            <div class="no-chats">
+                                <i class="fas fa-comments"></i>
+                                <h4>No conversations</h4>
+                                <p>Start chatting with employers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-main" id="chat-main">
+                        <div class="chat-placeholder">
+                            <i class="fas fa-comments"></i>
+                            <h3>Select a conversation</h3>
+                            <p>Choose a conversation from the sidebar to start messaging</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Chat Request Modal -->
+    <div id="chat-request-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Chat</h2>
+                <button class="close-btn" id="close-chat-request">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="chat-request-form">
+                    <div class="form-group">
+                        <label for="chat-message">Message to Employer:</label>
+                        <textarea id="chat-message" rows="4" 
+                                  placeholder="Hi, I'm interested in this position and would like to discuss it further..."
+                                  required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Request
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancel-chat-request">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employer Chat Request Modal -->
+    <div id="employer-chat-request-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Chat Request from Employer</h2>
+                <button class="close-btn" id="close-employer-chat-request">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="request-info">
+                    <div class="requester-avatar" id="employer-avatar">
+                        <span id="employer-initials">E</span>
+                    </div>
+                    <div class="requester-details">
+                        <h3 id="employer-name">Employer Name</h3>
+                        <p id="employer-info">Wants to chat about: <span id="employer-job-title">Job Title</span></p>
+                    </div>
+                </div>
+                <div class="request-message">
+                    <h4>Message:</h4>
+                    <p id="employer-message-text">Hello, I'd like to discuss your application with you.</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="accept-employer-chat-request">
+                    <i class="fas fa-check"></i> Accept
+                </button>
+                <button class="btn btn-secondary" id="decline-employer-chat-request">
+                    <i class="fas fa-times"></i> Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interview Details Modal -->
+    <div id="interview-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Interview Details</h2>
+                <button class="close-btn" id="close-interview-details">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="interview-detail-content">
+                    <div class="detail-row">
+                        <span class="detail-label">Interview Title:</span>
+                        <span id="detail-title">Interview Title</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Company:</span>
+                        <span id="detail-company">Company Name</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Position:</span>
+                        <span id="detail-position">Job Title</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date & Time:</span>
+                        <span id="detail-datetime">Date and Time</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Duration:</span>
+                        <span id="detail-duration">Duration</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Type:</span>
+                        <span id="detail-type">Interview Type</span>
+                    </div>
+                    <div class="detail-row" id="detail-location-row">
+                        <span class="detail-label">Location:</span>
+                        <span id="detail-location">Location</span>
+                    </div>
+                    <div class="detail-row" id="detail-notes-row">
+                        <span class="detail-label">Notes:</span>
+                        <div id="detail-notes">Additional notes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="confirm-interview">
+                    <i class="fas fa-check"></i> Confirm Attendance
+                </button>
+                <button class="btn btn-secondary" id="request-reschedule">
+                    <i class="fas fa-calendar-alt"></i> Request Reschedule
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Detail Modal -->
+    <div id="job-modal" class="modal">
+        <div class="modal-content job-modal-content">
+            <div class="modal-header">
+                <h2 id="modal-job-title">Job Title</h2>
+                <button class="close-btn" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-job-header">
+                    <div class="modal-job-info">
+                        <h3 id="modal-company">Company Name</h3>
+                        <div class="modal-job-meta" id="modal-job-meta">
+                            <!-- Job meta info will be populated here -->
+                        </div>
+                    </div>
+                    <div class="modal-job-actions">
+                        <button class="btn btn-primary apply-btn" id="modal-apply-btn">
+                            <i class="fas fa-paper-plane"></i> Apply Now
+                        </button>
+                        <button class="btn btn-secondary save-btn" id="modal-save-btn">
+                            <i class="fas fa-heart"></i> Save Job
+                        </button>
+                        <button class="btn btn-outline chat-btn" id="modal-chat-btn">
+                            <i class="fas fa-comments"></i> Chat with Employer
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="modal-job-content">
+                    <div class="job-section">
+                        <h4>Job Description</h4>
+                        <div id="modal-description" class="job-description-full">
+                            <!-- Job description will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="job-section" id="modal-requirements-section">
+                        <h4>Requirements</h4>
+                        <div id="modal-requirements" class="job-requirements-full">
+                            <!-- Job requirements will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4>Contact Information</h4>
+                        <div id="modal-contact">
+                            <!-- Contact info will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIXED: Application Modal with Enhanced Resume Upload -->
+    <div id="application-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Apply for Position</h2>
+                <button class="close-btn" id="close-application-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="application-form">
+                    <div class="form-group">
+                        <label for="applicant-name">Full Name *</label>
+                        <input type="text" id="applicant-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicant-email">Email Address *</label>
+                        <input type="email" id="applicant-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicant-phone">Phone Number</label>
+                        <input type="tel" id="applicant-phone">
+                    </div>
+
+                    <!-- FIXED: Enhanced Resume Upload Section -->
+                    <div class="form-group">
+                        <label for="resume-upload">Resume * <span class="required-note">(PDF, PNG, JPG only)</span></label>
+                        <div class="file-upload-container">
+                            <div class="file-upload-area" id="file-upload-area">
+                                <input type="file" id="resume-upload" accept=".pdf,.png,.jpg,.jpeg" required>
+                                <div class="file-upload-content">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drop your resume here or <span class="browse-text">click to browse</span></p>
+                                    <small>Supported: PDF (preferred), PNG, JPG • Max size: 50MB</small>
+                                </div>
+                            </div>
+                            
+                            <!-- Enhanced File Preview -->
+                            <div class="file-preview" id="file-preview" style="display: none;">
+                                <div class="file-info">
+                                    <div class="file-icon-container">
+                                        <i class="fas fa-file-pdf file-icon" id="file-icon"></i>
+                                    </div>
+                                    <div class="file-details">
+                                        <div class="file-name" id="file-name">Resume.pdf</div>
+                                        <div class="file-size" id="file-size">2.4 MB</div>
+                                        <div class="file-status" id="file-status">
+                                            <i class="fas fa-check-circle"></i> Ready to submit
+                                        </div>
+                                    </div>
+                                    <button type="button" class="remove-file-btn" id="remove-file-btn" title="Remove file">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Upload Progress -->
+                            <div class="upload-progress" id="upload-progress" style="display: none;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
+                                </div>
+                                <div class="progress-text" id="progress-text">Processing file...</div>
+                            </div>
+
+                            <!-- Error Display -->
+                            <div class="upload-error" id="upload-error" style="display: none;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span id="error-message">Error uploading file</span>
+                                <button type="button" class="retry-btn" id="retry-upload">Try Again</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cover-letter">Cover Letter</label>
+                        <textarea id="cover-letter" rows="6" placeholder="Tell us why you're perfect for this role..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submit-application">
+                            <i class="fas fa-paper-plane"></i> Submit Application
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancel-application">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2 id="success-title">Success!</h2>
+            </div>
+            <div class="modal-body">
+                <p id="success-message">Your action was completed successfully!</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="close-success-modal">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CRITICAL: Add login.js before worker.js -->
+    <script src="login.js"></script>
+    <script src="resumeStorage.js"></script>
+    <script src="worker.js"></script>
+</body>
+</html>
